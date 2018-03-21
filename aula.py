@@ -35,5 +35,17 @@ def main():
 	yHat = x.dot(theta.T)
 	ply.plot(x[:,1:], yHat,'-')
 	ply.show()
+	
+	'''
+	ply.plot(xtrain[,1:], ytrain, '*', c='S')
+	yHat = xtrain.dot(theta.T)
+	ply.plot(xtrain[:,1:], yHat, '-', c= 'r')
+	ply.show()
+	
+	ply.plot(xtest[:,1:], ytest, '*', c='b')
+	yHat = xtest.dot(theta.T)
+	ply.plot(xtest[:,1:], yHat, '-', c='r')
+	ply.show()
+	'''
 
 main()
