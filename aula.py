@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as ply
 import sys
 
 alpha = 0.01
@@ -7,7 +7,7 @@ alpha = 0.01
 def custo(X, Y, theta):
 	m = 2 * X.shape[0]
 	yHat = X.dot(theta.T)
-	error = ((yHat-Y)^2).sum()
+	error = ((yHat-Y)**2).sum()
 	return error/(m)
 
 def gradiente(x, y, theta, alpha, nitens):
