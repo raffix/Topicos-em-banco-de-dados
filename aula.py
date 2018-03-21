@@ -31,9 +31,9 @@ def main():
 	theta = np.zeros((1, d+1))
 	x = np.insert(x, 0, 1, axis=1)
 	theta,j = gradiente(x, y, theta, 0.01, 1000)
-	ply.plot(j)
+	ply.plot(x[:,1:], y,'*')
+	yHat = x.dot(theta.T)
+	ply.plot(x[:,1:], yHat,'-')
 	ply.show()
-
-	
 
 main()
