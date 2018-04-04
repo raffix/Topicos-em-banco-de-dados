@@ -21,3 +21,5 @@ def GD (X, y, th, alpha, niters):
     cost[i]=J(X,y,T)
   return T,cost
   
+ def g(X, th):
+  return 1/ (1+ (np.e**(-(X.dot(th.T))))
