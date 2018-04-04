@@ -49,9 +49,10 @@ if __name__ == "__main__":
     ## how many features are in a given list
     d=len(rows[0])-1 ## we subtract the result from 1 to discard the label (y)
     y=np.array([l[d:d+1] for l in rows],dtype=float) ## vector of dataset labels
-    X=np.array([l[0:d-1] for l in rows],dtype=float) ## matrix of dataset features
-    Theta=np.zeros((1,d)) ## Initialize Theta with zeros
+    X=np.array([l[0:d] for l in rows],dtype=float) ## matrix of dataset features
+    Theta=np.zeros((1,d+1)) ## Initialize Theta with zeros
     X = normalizeDataset(X, m, d)
+    print(X.shape)
     X=np.insert(X,0,1,axis=1) ## inserts a column of 1's
     tsize=int(m*0.7) ## size of the training set
     Xtr=X[:tsize,:] ## from the first row to tsize-1, all colmuns
@@ -82,6 +83,7 @@ if __name__ == "__main__":
     ##print("Test cost", J(Xte,yte,Theta))
     pos = (y==1).ravel()
     neg = (y==0).ravel()
+    print(X.shape)
     pl.plot(X[pos,1], X[pos, 2], 'o', c='r')
     pl.plot(X[neg,1], X[neg, 2], 'o', c='b')
     pl.show()
