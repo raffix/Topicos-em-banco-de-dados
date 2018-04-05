@@ -3,36 +3,36 @@ import sys
 import matplotlib.pyplot as pl
 
 ## returns the predicted y (based on feature dataset (X) and weights (Theta))
-def f(X,T):
-    return X.dot(T.T)
+def f(X,th):
+    return X.dot(th.T)
  
 ## returns the cost (residual error) for predicted y
-def J(X,y,T):
+def J(X,y,th):
   m=X.shape[0]
-  y_hat=X.dot(T.T)
+  y_hat=X.dot(th.T)
   cost=np.sum((y_hat-y)**2)/(2*m)
   return cost
  
 ## finds the "good" values for the weigths (Theta)
 ## Gradient descent (optmization function)
-def GD (X,y,T,alpha,niters):
+def GD (X,y,th,alpha,niters):
   m=X.shape[0]
   cost=np.zeros((niters,1))
   for i in range(0,niters):
-    y_hat=X.dot(T.T)
+    y_hat=X.dot(th.T)
     error=((y_hat-y)*X).sum(0)/m
-    T=T-(alpha*(error))
-    cost[i]=J(X,y,T)
-  return T,cost
+    th = th-(alpha*(error))
+    cost[i]=J(X,y,th)
+  return th,cost
  
 def featureScaling(X):
   X=X-np.min(X,0)
   den=np.max(X,0)-np.min(X,0)
   return X/den
  
-def RMSE(X,y,T):
+def RMSE(X,y,th):
 	m=X.shape[0]
-	y_hat=f(X,T)
+	y_hat=f(X,th)
 	error=((y_hat-y)**2).sum()/m
 	return np.sqrt(error)
 	
@@ -50,9 +50,9 @@ if __name__ == "__main__":
     rows=[l.split(',') for l in fin.readlines()] ## the values are separated by comma
     m=len(rows) ## how many lists rows has, i.e., how many examples in the dataset
     ## how many features are in a given list
-    d=len(rows[0])-1 ## we subtract the result from 1 to discard the label (y)
-    y=np.array([l[d:d+1] for l in rows],dtype=float) ## vector of dataset labels
-    X=np.array([l[0:d] for l in rows],dtype=float) ## matrix of dataset features
+    d = len(rows[0])-1 ## we subtract the result from 1 to discard the label (y)
+    y = np.array([l[d:d+1] for l in rows],dtype=float) ## vector of dataset labels
+    X = np.array([l[0:d] for l in rows],dtype=float) ## matrix of dataset features
     ### Feature scaling
     Xori=X.copy() ## save the original X
     X=featureScaling(X)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     ytr=y[:tsize]
     yte=y[tsize:]
     ### Call gradient descent to find the "good" values to Theta
-    Theta,cost=GD(Xtr,ytr,Theta,0.01,2000)
+    Theta,cost=GD(Xtr,ytr,Theta,0.000001,2000)
     pl.plot(cost)
     pl.show()
     print('RMSE:',RMSE(Xte,yte,Theta))
